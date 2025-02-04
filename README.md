@@ -6,7 +6,7 @@
 # 🏃🏃‍♂️🏃‍♀️ 팀명 : 토마스와 친구들
 |김성근|윤수민|이재철|
 |---|---|---|
-|![김성근]()|![윤수민]()|![이재철]()|
+|![김성근](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%84%B1.jpg)|![윤수민](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%85%81.jpg)|![이재철](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%88%E3%85%8A.jpg)|
 
 
  ---
@@ -31,7 +31,7 @@
 ## 🔨 기술 스택
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
 
-![OpenAI](https://a11ybadges.com/badge?logo=openai)!![Langchain](https://camo.githubusercontent.com/4f7aaf07d9e13fd95b27d2db63e0712cfe0ed4588a6ac1b7b3cb505af6d37abe/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c616e67636861696e2d4637444631453f7374796c653d666f722d7468652d6261646765266c6f676f3d6c616e67636861696e266c6f676f436f6c6f723d626c61636b)![streamlit](https://camo.githubusercontent.com/a79929766bd74e02c10f8a234c6037dacc4d0a1d5d73c4fc1bad339b253a82a7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73747265616d6c69742532302d2532334646303030302e7376673f7374796c653d666f722d7468652d6261646765266c6f676f3d73747265616d6c6974266c6f676f436f6c6f723d7768697465)[chromadb](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/chromadb.jpg)
+![OpenAI](https://a11ybadges.com/badge?logo=openai)!![Langchain](https://camo.githubusercontent.com/4f7aaf07d9e13fd95b27d2db63e0712cfe0ed4588a6ac1b7b3cb505af6d37abe/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c616e67636861696e2d4637444631453f7374796c653d666f722d7468652d6261646765266c6f676f3d6c616e67636861696e266c6f676f436f6c6f723d626c61636b)![streamlit](https://camo.githubusercontent.com/a79929766bd74e02c10f8a234c6037dacc4d0a1d5d73c4fc1bad339b253a82a7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73747265616d6c69742532302d2532334646303030302e7376673f7374796c653d666f722d7468652d6261646765266c6f676f3d73747265616d6c6974266c6f676f436f6c6f723d7768697465)![chromadb](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/chromadb.jpg)
 
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
 
