@@ -3,7 +3,7 @@ from langchain.vectorstores import Chroma
 
 class DBClient():
     def __init__(self, 
-                 persist_directory:str = '../resources/db/Galaxy25',
+                 persist_directory:str = './db/Galaxy25',
                  embedding_model="text-embedding-ada-002"):
         self.__embeddings = OpenAIEmbeddings( #← OpenAIEmbeddings를 초기화
             model=embedding_model
