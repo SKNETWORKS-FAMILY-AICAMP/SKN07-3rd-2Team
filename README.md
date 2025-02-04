@@ -3,7 +3,7 @@
 
 ---
 
-# 🏃🏃‍♂️🏃‍♀️ 팀명 : 토마스와 친구들
+# 🏃🏃‍♂️🏃‍♀️ 팀명 : 김성근과 아이들
 |<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%84%B1.jpg" alt="김성근" width="120"/>|<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%85%81.jpg" alt="윤수민" width="120"/>|<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%88%E3%85%8A.jpg" alt="이재철" width="120"/>|
 |---|---|---|
 | <div align="center">**김성근**</div> | <div align="center">**윤수민**</div> | <div align="center">**이재철**</div> |
