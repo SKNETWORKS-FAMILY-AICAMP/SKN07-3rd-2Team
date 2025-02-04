@@ -20,7 +20,7 @@ class GptAgent():
     """
     def __init__(self,
                  chat_model:str="gpt-4o-mini-2024-07-18",
-                 retriever:RetrievalQA = None
+                 retriever
                  ):
         self.__llm:ChatOpenAI = ChatOpenAI(
             model = chat_model,
@@ -30,9 +30,12 @@ class GptAgent():
             template=GptAgent.__TEMPLATE,
             input_variables=['context','question']
         )
-        self.__retriever:RetrievalQA = retriever
+        self.__retriever = retriever
         self.__chain()
 
+    def get_model_name(self):
+        return self.__model_name
+        
     def llm(self, llm=None):
         if llm != None:
             self.__llm = llm
