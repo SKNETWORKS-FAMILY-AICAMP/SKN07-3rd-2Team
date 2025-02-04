@@ -5,7 +5,7 @@ from DBClient import DBClient
 import os
 
 class PdfUploader():
-    __ROOT_PATH = '../resources/db/temp'
+    __ROOT_PATH = './db/temp'
     def __init__(self,
                  model_name:str = 'gpt-4o-mini-2024-07-18'
                  ):
