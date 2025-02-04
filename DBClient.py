@@ -13,7 +13,13 @@ class DBClient():
             embedding_function=self.__embeddings,
         )
         pass
-
+                     
+    def add(self, documents:list=None):
+        if documents is None:
+            return
+        self.__vector_store.add_documents(documents)
+        pass
+        
     def get(self):
         return self.__vector_store
     
