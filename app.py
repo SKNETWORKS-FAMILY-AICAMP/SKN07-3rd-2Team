@@ -2,18 +2,15 @@
 import streamlit as st
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain import hub
-from langchain.chat_models import ChatOpenAI
-from langchain.schema.runnable import RunnablePassthrough
-from langchain.callbacks import get_openai_callback
+from langchain_openai import ChatOpenAI
 import os
-from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 
 from DBClient import DBClient
+from GptAgent import GptAgent
+
 # Croma DB 접속용 클라이언트 인스턴스화
 db_client = DBClient()
+gpt_agent = GptAgent(retriever=db_client.get_retriever())
 
 # 텍스트 요약 함수
 def summarize_document(document):
@@ -39,7 +36,7 @@ def init(uploaded_file):
         # 데이터 분할
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
         texts = text_splitter.split_documents(document)
-        db = getDB()
+        db = db_client.get()
         
         # Chroma DB에 저장
         db.add_documents(texts)
@@ -52,53 +49,6 @@ def init(uploaded_file):
         # 사이드바에 요약 표시
         st.sidebar.subheader("📜 PDF 요약")
         st.sidebar.write(summary)
-
-
-# 텍스트 임베딩
-def getDB():
-    # 저장 및 검색
-    embeddings = OpenAIEmbeddings()
-    docsearch = Chroma(
-        persist_directory="./db",  # 데이터베이스 경로
-        embedding_function=embeddings
-    )
-    return docsearch
-
-
-# RAG 체인 생성
-def getRagChain():
-    retriever = getDB().as_retriever()
-    
-    # rag_prompt = hub.pull("rlm/rag-prompt")
-    rag_prompt = RunnableLambda(lambda x: f"""
-    당신은 사용자 매뉴얼을 안내하는 AI 어시스턴트입니다. 사용자의 질문에 대해 컨텍스트를 바탕으로 명확하고 자세한 답변을 제공하세요.
-    
-    ### [컨텍스트]
-    {x['context']}
-    ### [질문]
-    {x['question']}
-    
-    - 질문에 대해 완전한 문장으로 답변, 단답형 답변은 지양하고, 문장으로 명확하게 설명할 것.
-    - 이상하거나 무의미한 질문에는 답변하지 말 것
-    - 컨텍스트에 없는 질문에는 단호하게 답변하지 말 것 예시 : 핸드폰 파손 방법, 핸드폰으로 라면 끓이기 
-    - 아이콘(icon)에 대한 설명이 포함된 경우, 아이콘의 모양과 특징을 구체적으로 서술할 것.
-    - 사용자가 명확한 답변을 얻을 수 있도록 조리 있게 정리하여 답할 것.
-    """)
-
-    llm = ChatOpenAI(model_name="gpt-4-0613", temperature=0)
-    rag_chain = (
-        {"context": retriever, "question": RunnablePassthrough()} 
-        | rag_prompt 
-        | llm 
-    )
-    return rag_chain
-
-
-# 질문에 대한 답변 생성
-def generate_answer(question):
-    rag_chain = getRagChain()
-    answer = rag_chain.invoke(question).content
-    return answer
 
 # 초기화
 if 'conversation' not in st.session_state:
@@ -130,10 +80,9 @@ with st.container():
         with st.chat_message('user'):
             st.write(question)
         
-        with st.spinner('답변을 생성 중입니다...'):
-            with get_openai_callback() as cost:
-                answer = generate_answer(question)
-                with st.chat_message('assistant'):
-                    st.write(answer)
-                
+        with st.chat_message('assistant'):
+            with st.spinner('답변을 생성 중입니다...'):
+                answer = gpt_agent.send_message(question)
                 st.session_state.conversation.append((question, answer))
+                st.write(answer)
+            
