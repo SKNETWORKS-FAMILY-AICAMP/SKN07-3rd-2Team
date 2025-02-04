@@ -1,13 +1,13 @@
 # SKN07-3rd-2Team
-## 3차 프로젝트: LLM을 연동한 내외부 문서 기반 질의응답 시스템
+## LLM을 연동한 내외부 문서 기반 질의응답 시스템
 
 ---
 
 # 🏃🏃‍♂️🏃‍♀️ 팀명 : 토마스와 친구들
-|김성근|윤수민|이재철|
+|<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%84%B1.jpg" alt="김성근" width="120"/>|<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%85%81.jpg" alt="윤수민" width="120"/>|<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%88%E3%85%8A.jpg" alt="이재철" width="120"/>|
 |---|---|---|
-|![김성근](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%84%B1.jpg)|![윤수민](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%85%E3%85%81.jpg)|![이재철](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%E3%85%88%E3%85%8A.jpg)|
-
+| <div align="center">**김성근**</div> | <div align="center">**윤수민**</div> | <div align="center">**이재철**</div> |
+| <div align="center">Refactoring</div> | <div align="center">Streamlit</div> | <div align="center">RAG<br>Prompt Engineering</div> |
 
  ---
  
@@ -29,50 +29,106 @@
 ---
 
 ## 🔨 기술 스택
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
-
-![OpenAI](https://a11ybadges.com/badge?logo=openai)!![Langchain](https://camo.githubusercontent.com/4f7aaf07d9e13fd95b27d2db63e0712cfe0ed4588a6ac1b7b3cb505af6d37abe/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c616e67636861696e2d4637444631453f7374796c653d666f722d7468652d6261646765266c6f676f3d6c616e67636861696e266c6f676f436f6c6f723d626c61636b)![streamlit](https://camo.githubusercontent.com/a79929766bd74e02c10f8a234c6037dacc4d0a1d5d73c4fc1bad339b253a82a7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f73747265616d6c69742532302d2532334646303030302e7376673f7374796c653d666f722d7468652d6261646765266c6f676f3d73747265616d6c6974266c6f676f436f6c6f723d7768697465)![chromadb](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/chromadb.jpg)
-
-![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
-
----
-
-## 📂시스템 아키텍처
-![system](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.jpg)
-
----
-
-## 🔖 주요 프로시저
-데이털 파일 로
-
-#### 🔖 데이터 파일 로드, 분할, VectorDB 저장
+<div>
+<img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
+<img src="https://a11ybadges.com/badge?logo=openai" alt="OpenAI" width="163" height="28"/>
+<img src="https://img.shields.io/badge/langchain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black">
+<img src="https뷰
+### 데이터 로드 및 전처리 (PDF 처리 및 ChromaDB 저장)
 ```python
-def init():
-    # 데이터 로드 (PDF 파일)
-    loader = PyPDFLoader("./your_pdf_file.pdf")
-    document = loader.load()
-    # 데이터 분할
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
-    texts = text_splitter.split_documents(document)
-    db = getDB()
-    # Chroma DB 에 저장
-    docsearch = db.add_documents(texts)
+# 데이터 업로드 및 크로마DB 저장
+def init(uploaded_file):
+    if uploaded_file is not None:
+        # 파일 저장 후 로드
+        file_path = f"./temp/{uploaded_file.name}"
+        os.makedirs("./temp", exist_ok=True)
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+        
+        # 데이터 로드 (PDF 파일)
+        loader = PyPDFLoader(file_path)
+        document = loader.load()
+        
+        # 데이터 분할
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
+        texts = text_splitter.split_documents(document)
+        db = getDB()
+        
+        # Chroma DB에 저장
+        db.add_documents(texts)
+        st.success("PDF 파일이 성공적으로 처리되었습니다!")
+
+# 텍스트 임베딩
+def getDB():
+    # 저장 및 검색
+    embeddings = OpenAIEmbeddings()
+    docsearch = Chroma(
+        persist_directory="./db",  # 데이터베이스 경로
+        embedding_function=embeddings
+    )
+    return docsearch
 ```
-| ![data_load](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/data%20load.jpg) | ![pdffile](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/data/pdf%ED%8C%8C%EC%9D%BC.jpg) |
+| ![pdf_file](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/pdf_10page.jpg?raw=true) | ![data_load](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/data_load.jpg?raw=true) |
 |:-------------------------------------:|:-------------------------------------:|
+
+### PDF 요약
+```python
+# 텍스트 요약 함수
+def summarize_document(document):
+    llm = ChatOpenAI(model_name="gpt-4-0613", temperature=0)
+    summary_prompt = "다음 텍스트에서 어떤 제품에 대한 설명서인지 간략히 요약해 주세요:\n\n" + document
+    summary = llm.predict(summary_prompt)
+    return summary
+```
+
+### RAG Chain 생성
+```python
+def getRagChain():
+    retriever = getDB().as_retriever()
+    rag_prompt = RunnableLambda(lambda x: f"""
+당신은 사용자 매뉴얼을 안내하는 AI 어시스턴트입니다. 사용자의 질문에 대해 명확하고 자세한 답변을 제공하세요.
+
+### [컨텍스트]
+{x['context']}
+
+### [질문]
+{x['question']}
+
+- 질문에 대해 완전한 문장으로 답변, 단답형 답변은 지양하고, 문장으로 명확하게 설명할 것.
+- 이상하거나 무의미한 질문 또는 매뉴얼과 없는 질문에는 단호하게 답변하지 말 것 예시 : 핸드폰 파손 방법, 핸드폰으로 라면 끓이기 
+- 아이콘(icon)에 대한 설명이 포함된 경우, 아이콘의 모양과 특징을 구체적으로 서술할 것.
+- 사용자가 명확한 답변을 얻을 수 있도록 조리 있게 정리하여 답할 것.
+""")
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
+    
+    rag_chain = (
+        {"context": retriever, "question": RunnablePassthrough()} 
+        | rag_prompt 
+        | llm 
+    )
+    return rag_chain
+
+def generate_answer(question):
+    rag_chain = getRagChain()
+    answer = rag_chain.invoke(question).content
+    return answer
+```
 
  ---
  
-## 🔖 수행결과(테스트/시연 페이지)
- #### PDF 파일 업로드
-![upload](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/fileupload.jpg)
- #### 문서 요약 
-![summary](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/sidebar.jpg)
- #### 구현 화면
-![screen](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%EC%A0%84%EC%B2%B4%ED%99%94%EB%A9%B4.jpg)
- #### 이상 질문 시 답변ㄷ
-![weired](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%EC%9D%B4%EC%83%81%EC%A7%88%EB%AC%B8.jpg)
- 
+## 📌 수행결과(테스트/시연 페이지)
+### 구현 화면
+![screen](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%EC%A0%84%EC%B2%B4%ED%99%94%EB%A9%B4.jpg?raw=true)
+
+---
+![history](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%EC%A7%88%EB%AC%B8_%EB%8B%B5%EB%B3%80_history.jpg?raw=true)
+
+---
+### 이상 질문 시 답변
+![weired](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/%EC%9D%B4%EC%83%81%EC%A7%88%EB%AC%B8.jpg?raw=true)
+
+
+---
 ## 📖 한 줄 회고
 김성근 : 
 
