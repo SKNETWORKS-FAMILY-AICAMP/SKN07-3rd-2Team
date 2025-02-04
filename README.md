@@ -58,7 +58,8 @@ def init():
     # Chroma DB 에 저장
     docsearch = db.add_documents(texts)
 ```
-![data_load](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/data%20load.jpg)![pdffile](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/data/pdf%ED%8C%8C%EC%9D%BC.jpg)
+| ![data_load]([./images/vscode.png](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/data%20load.jpg)) | ![pdffile]([./images/kb.png](https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/data/pdf%ED%8C%8C%EC%9D%BC.jpg)) |
+|:-------------------------------------:|:-------------------------------------:|
 
  ---
  
