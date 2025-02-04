@@ -1,5 +1,5 @@
-from langchain.embeddings import OpenAIEmbeddings  #← OpenAIEmbeddings를 가져오기
-from langchain.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings  #← OpenAIEmbeddings를 가져오기
+from langchain_chroma import Chroma
 
 class DBClient():
     def __init__(self, 
