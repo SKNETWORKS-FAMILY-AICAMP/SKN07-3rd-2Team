@@ -33,7 +33,17 @@
 <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
 <img src="https://a11ybadges.com/badge?logo=openai" alt="OpenAI" width="163" height="28"/>
 <img src="https://img.shields.io/badge/langchain-F7DF1E?style=for-the-badge&logo=langchain&logoColor=black">
-<img src="https뷰
+<img src="https://img.shields.io/badge/streamlit%20-%23FF0000.svg?style=for-the-badge&logo=streamlit&logoColor=white">
+<img src="https://github.com/pladata-encore/SKN07-3rd-2Team/blob/main/image/chromadb.jpg" alt="chromadb" width="90" height="40">
+<div>
+</div>
+<img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white">
+<img src="https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white">
+<img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
+</div>
+ 
+## 📌 코드 리뷰
 ### 데이터 로드 및 전처리 (PDF 처리 및 ChromaDB 저장)
 ```python
 # 데이터 업로드 및 크로마DB 저장
@@ -131,7 +141,5 @@ def generate_answer(question):
 ---
 ## 📖 한 줄 회고
 김성근 : 
-
-윤수민 : 
-
+윤수민 :
 이재철 : 팀원 중 제일 부족함이 많은 프로젝트였습니다. 부족한 팀원 도움주시면서 하시느라 고생 많으셨습니다🙇‍♂️
