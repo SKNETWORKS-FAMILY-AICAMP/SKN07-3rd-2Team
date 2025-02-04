@@ -1,0 +1,9 @@
+langchain
+pypdf
+tiktoken
+chromadb
+openai
+langchain-community
+langchain_openai
+langchain-chroma
+spacy
