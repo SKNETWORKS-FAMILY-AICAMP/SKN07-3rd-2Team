@@ -39,7 +39,6 @@ st.title('📱 스마트폰 사용메뉴얼 기반 Q&A')
 # st.header('제품: Samsung S25')
 
 # 파일 업로드
-@st.cache_data # decorator 1번만 실행후 재실행 금지
 with st.sidebar:
     uploaded_file = st.file_uploader("🗂️ PDF 파일을 업로드하세요", type=["pdf"])
     if uploaded_file:

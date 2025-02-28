@@ -19,8 +19,8 @@ class GptAgent():
     - 사용자가 명확한 답변을 얻을 수 있도록 조리 있게 정리하여 답할 것.
     """
     def __init__(self,
+                 retriever,
                  chat_model:str="gpt-4o-mini-2024-07-18",
-                 retriever
                  ):
         self.__llm:ChatOpenAI = ChatOpenAI(
             model = chat_model,
